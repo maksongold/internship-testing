@@ -1,28 +1,17 @@
-function checkDate(timestamp) {
-    var day = new Date(timestamp * 1000).getDate();
-    var month = new Date(timestamp * 1000).getMonth();
-    var year = new Date(timestamp * 1000).getFullYear();
-    var hour = new Date(timestamp * 1000).getHours();
+// в данном случае я бы использовал стрелочную функцию, так как она имеет более короткий и наглядный синтаксис, а также
+// помогает избежать ошибок с возможным использованием оператора this в будущем
+const checkDate = (timestamp) => {
+    // в данной задаче я не вижу смысла сравнивать отдельно методы объекта Date
+    // легче сравнить таймстемпы между собой
+    // это сократит код в несколько раз, а также поможет избежать допущенной в сравнении месяцев ошибки (строчка 9
+    // исходного задания)
 
-    const current_Date = new Date(Date.now());
-    const current_day = current_Date.getDate();
-    const current_month = current_Date.getMonth() + 1;
-    const currentYear = current_Date.getFullYear();
-
-    let isSameDate = false;
-
-    if (year == currentYear) {
-        if (month == current_month) {
-            if (day == current_day) {
-                isSameDate = true;
-            } else {
-                isSameDate = false;
-            }
-        }
-    }
+    // для удобства я создал переменную argDate
+    const argDate = new Date(timestamp * 1000);
 
     return {
-        isSameDate: isSameDate,
-        dayPeriod: hour > 11 ? 'pm' : 'am'
+        // вместо избыточной булевой переменной я сразу присваиваю результат выражения свойству объекта
+        isSameDate: argDate.getTime() === Date.now(),
+        dayPeriod: argDate.getHours() > 11 ? 'pm' : 'am'
     }
 }
